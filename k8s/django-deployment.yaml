@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  selector:
+    matchLabels:
+      app: django
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - name: django
+          image: budget_app:latest  # Use the local image name
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_NAME
+              value: budget_db
+            - name: DB_USER
+              value: your_mysql_user
+            - name: DB_PASSWORD
+              value: your_mysql_password
+            - name: DB_HOST
+              value: mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: ALLOWED_HOSTS
+              value: localhost,127.0.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: django
+  type: NodePort
