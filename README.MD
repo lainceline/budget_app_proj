@@ -1,6 +1,23 @@
 # Personal Budgeting Application
 
-This is a personal budgeting application built using Django for the backend and React for the frontend. The application uses MySQL as the database and can be deployed using Kubernetes.
+This is a Personal Budgeting Application that helps users manage their finances by tracking income, expenses, and budgets. The application consists of a Django backend, a React frontend, and uses MySQL as the database. The project is containerized using Docker and Docker Compose.
+
+## Features
+
+- Track income and expenses
+- Display lists of income and expenses
+- Add, edit, and delete income and expense entries
+- Sample data for quick setup and testing
+
+## Technologies Used
+
+- Django
+- Django REST Framework
+- React
+- MySQL
+- Docker
+- Docker Compose
+- Axios
 
 ## Prerequisites
 
