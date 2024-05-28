@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-igq8*!+smimrdsni=p_r8!)ht6_ft#f=40pl9^47!g_bzd%^sj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web']  # Add 'web' to allowed hosts
 
 # Application definition
 
@@ -81,7 +80,7 @@ DATABASES = {
         'NAME': 'budget_db',
         'USER': 'your_mysql_user',
         'PASSWORD': 'your_mysql_password',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }

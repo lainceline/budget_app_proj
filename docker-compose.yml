@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  web:
+    build: ./budget_app
+    command: sh -c "/app/wait-for-it.sh db:3306 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./budget_app:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./budget-frontend
+    volumes:
+      - ./budget-frontend:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: budget_db
+      MYSQL_USER: your_mysql_user
+      MYSQL_PASSWORD: your_mysql_password
+
+volumes:
+  mysql_data:
