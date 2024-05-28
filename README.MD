@@ -1,167 +1,157 @@
 # Personal Budgeting Application
 
-This is a Personal Budgeting Application that helps users manage their finances by tracking income, expenses, and budgets. The application consists of a Django backend, a React frontend, and uses MySQL as the database. The project is containerized using Docker and Docker Compose.
-
-## Features
-
-- Track income and expenses
-- Display lists of income and expenses
-- Add, edit, and delete income and expense entries
-- Sample data for quick setup and testing
-
-## Technologies Used
-
-- Django
-- Django REST Framework
-- React
-- MySQL
-- Docker
-- Docker Compose
-- Axios
+This is a personal budgeting application built using Django for the backend and React for the frontend. The application uses MySQL as the database and can be deployed using Kubernetes.
 
 ## Prerequisites
 
-- Docker and Docker Compose installed on your machine
-- Python 3.8 or later
-- Node.js and npm
+- Docker
+- Docker Compose
+- Kubernetes
+- Minikube
+- kubectl
 
-## Setup Instructions
+## Getting Started
 
-### 1. Clone the Repository
+### Setting Up the Environment
 
-```bash
-git clone https://github.com/lainceline/personal-budgeting-app.git
-cd personal-budgeting-app
-```
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/lainceline/budget_app_project.git
+   cd personal-budgeting-app
+   ```
 
-### 2. Set Up Backend
+2. **Set Up the Virtual Environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
 
-#### Create a Virtual Environment and Activate It
+3. **Install Backend Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-python -m venv budget_app_venv
-source budget_app_venv/bin/activate  # For Unix-based systems
-# or
-.\budget_app_venv\Scripts\activate  # For Windows
-```
+### Using Docker Compose
 
-#### Install Backend Dependencies
+1. **Build and Start the Containers**:
+   ```bash
+   docker-compose up --build
+   ```
 
-```bash
-pip install -r budget_app/requirements.txt
-```
+2. **Apply Migrations**:
+   ```bash
+   docker-compose exec web python manage.py migrate
+   ```
 
-#### Environment Variables
+3. **Load Sample Data**:
+   ```bash
+   docker-compose exec web python manage.py loaddata budget/fixtures/sample_data.json
+   ```
 
-Create a `.env` file in the root directory of the project:
+4. **Create a Superuser** (Optional):
+   ```bash
+   docker-compose exec web python manage.py createsuperuser
+   ```
 
-```dotenv
-DB_NAME=budget_db
-DB_USER=your_mysql_user
-DB_PASSWORD=your_mysql_password
-DB_HOST=db  # Use 'localhost' for local development
-DB_PORT=3306
-TEST_DB_NAME=test_budget_db
-ALLOWED_HOSTS=localhost,127.0.0.1,web
-```
+5. **Access the Application**:
+   - Backend: `http://localhost:8000`
+   - Frontend: `http://localhost:3000`
 
-### 3. Set Up Frontend
+### Using Kubernetes with Minikube
 
-#### Install Frontend Dependencies
+1. **Start Minikube**:
+   ```bash
+   minikube start
+   ```
 
-```bash
-cd budget-frontend
-npm install
-```
+2. **Set Docker Environment to Minikube**:
+   ```powershell
+   & minikube -p minikube docker-env --shell powershell | Invoke-Expression
+   ```
 
-### 4. Run the Application Using Docker Compose
+   ```bash
+   eval $(minikube docker-env)
+   ```
 
-#### Build and Start the Services
+3. **Build Docker Images**:
+   ```bash
+   docker build -t budget_app:latest ./budget_app
+   docker build -t budget-frontend:latest ./budget-frontend
+   ```
 
-```bash
-docker-compose up --build
-```
+4. **Apply Kubernetes Manifests**:
+   ```bash
+   kubectl apply -f k8s/mysql-deployment.yaml
+   kubectl apply -f k8s/django-deployment.yaml
+   kubectl apply -f k8s/react-deployment.yaml
+   ```
 
-This command will start the following services:
+5. **Verify Pods and Services**:
+   ```bash
+   kubectl get pods
+   kubectl get services
+   ```
 
-- `web`: Django backend running on `http://localhost:8000/`
-- `frontend`: React frontend running on `http://localhost:3000/`
-- `db`: MySQL database
+6. **Access the Application**:
+   ```bash
+   minikube service react --url
+   ```
 
-### 5. Load Sample Data
+## Running Tests
 
-To load the sample data into the database, run:
+### Backend Tests
 
-```bash
-docker-compose exec web python manage.py loaddata budget/fixtures/sample_data.json
-```
+1. **Run Backend Tests**:
+   ```bash
+   docker-compose exec web python manage.py test
+   ```
 
-### 6. Running Tests
+### Frontend Tests
 
-#### Backend Tests
+1. **Install Frontend Test Dependencies**:
+   ```bash
+   cd budget-frontend
+   npm install
+   ```
 
-To run backend tests, execute:
+2. **Run Frontend Tests**:
+   ```bash
+   npm test
+   ```
 
-```bash
-docker-compose exec web python manage.py test
-```
-
-#### Frontend Tests
-
-To run frontend tests, execute:
-
-```bash
-cd budget-frontend
-npm test
-```
-
-## Project Structure
+## Directory Structure
 
 ```
 personal-budgeting-app/
-├── budget_app/
-│   ├── budget/
-│   │   ├── fixtures/
-│   │   │   └── sample_data.json
-│   │   ├── migrations/
-│   │   ├── __init__.py
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── tests.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   ├── budget_app/
-│   │   ├── __init__.py
-│   │   ├── asgi.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   └── wsgi.py
-│   ├── manage.py
-│   ├── requirements.txt
-│   └── Dockerfile
-├── budget-frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Income.js
-│   │   │   ├── Expense.js
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── package.json
-│   ├── package-lock.json
-│   └── Dockerfile
-├── .env
-├── docker-compose.yml
-└── README.md
+│
+├── budget_app/                  # Django project directory
+│   ├── budget/                  # Django app directory
+│   ├── budget_app/              # Django project settings
+│   ├── manage.py                # Django project management script
+│   └── requirements.txt         # Python dependencies
+│
+├── budget-frontend/             # React project directory
+│   ├── public/                  # Public assets
+│   ├── src/                     # React source code
+│   ├── package.json             # Node.js dependencies and scripts
+│   └── package-lock.json        # Lockfile for Node.js dependencies
+│
+├── k8s/                         # Kubernetes manifests
+│   ├── mysql-deployment.yaml    # MySQL deployment and service
+│   ├── django-deployment.yaml   # Django deployment and service
+│   └── react-deployment.yaml    # React deployment and service
+│
+├── docker-compose.yml           # Docker Compose configuration
+└── README.md                    # Project README
 ```
 
-## Notes
+## Contributing
 
-- Ensure Docker and Docker Compose are running correctly on your machine.
-- The `.env` file should contain the correct database credentials and other necessary environment variables.
+Feel free to submit pull requests or open issues to improve this project.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+
+This `README.md` provides comprehensive instructions for setting up and running the application using Docker Compose and Kubernetes with Minikube, as well as running tests for both the backend and frontend. If you have any further questions or need additional information, please let me know!
