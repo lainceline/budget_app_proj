@@ -11,10 +11,16 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -25,7 +31,7 @@ SECRET_KEY = 'django-insecure-igq8*!+smimrdsni=p_r8!)ht6_ft#f=40pl9^47!g_bzd%^sj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web']  # Add 'web' to allowed hosts
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', 'web'])
 
 # Application definition
 
@@ -77,11 +83,11 @@ WSGI_APPLICATION = 'budget_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'budget_db',
-        'USER': 'your_mysql_user',
-        'PASSWORD': 'your_mysql_password',
-        'HOST': 'db',
-        'PORT': '3306',
+        'NAME': env('DB_NAME', default='budget_db'),
+        'USER': env('DB_USER', default='your_mysql_user'),
+        'PASSWORD': env('DB_PASSWORD', default='your_mysql_password'),
+        'HOST': env('DB_HOST', default='localhost'),  # Use 'localhost' for local development
+        'PORT': env('DB_PORT', default='3306'),
     }
 }
 
