@@ -1,4 +1,3 @@
-// src/components/Income.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -20,7 +19,7 @@ function Income() {
       <h2>Income List</h2>
       <ul>
         {incomes.map(income => (
-          <li key={income.id}>{income.description}: ${income.amount}</li>
+          <li key={income.id}>{income.description}: ${income.amount.toFixed(2)}</li>
         ))}
       </ul>
     </div>

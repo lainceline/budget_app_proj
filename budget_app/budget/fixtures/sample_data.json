@@ -3,7 +3,7 @@
     "model": "budget.income",
     "pk": 1,
     "fields": {
-      "amount": 5000.00,
+      "amount": "5000.00",
       "description": "Salary"
     }
   },
@@ -11,7 +11,7 @@
     "model": "budget.expense",
     "pk": 1,
     "fields": {
-      "amount": 1500.00,
+      "amount": "1500.00",
       "description": "Rent"
     }
   },
@@ -19,7 +19,7 @@
     "model": "budget.expense",
     "pk": 2,
     "fields": {
-      "amount": 200.00,
+      "amount": "200.00",
       "description": "Utilities"
     }
   }
