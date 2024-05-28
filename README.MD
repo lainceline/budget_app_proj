@@ -34,7 +34,7 @@ This is a Personal Budgeting Application that helps users manage their finances 
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/lainceline/budget_app_project.git
-   cd personal-budgeting-app
+   cd budget_app_project
    ```
 
 2. **Set Up the Virtual Environment**:
