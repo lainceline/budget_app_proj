@@ -30,7 +30,7 @@ This is a Personal Budgeting Application that helps users manage their finances 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/personal-budgeting-app.git
+git clone https://github.com/lainceline/personal-budgeting-app.git
 cd personal-budgeting-app
 ```
 
