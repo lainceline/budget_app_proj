@@ -1,27 +1,26 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import Income from './components/Income';
 import Expense from './components/Expense';
+import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <div>
-        <h1>Personal Budgeting Application</h1>
-        <nav>
-          <ul>
-            <li><Link to="/incomes">Incomes</Link></li>
-            <li><Link to="/expenses">Expenses</Link></li>
-          </ul>
-        </nav>
-        <Switch>
-          <Route path="/incomes" component={Income} />
-          <Route path="/expenses" component={Expense} />
-        </Switch>
-      </div>
-    </Router>
+    <div>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">
+            Personal Budgeting Application
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Container>
+        <Income />
+        <Expense />
+      </Container>
+    </div>
   );
-}
+};
 
 export default App;

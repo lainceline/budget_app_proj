@@ -94,15 +94,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': env('DB_NAME', default='budget_db'),
         'USER': env('DB_USER', default='your_mysql_user'),
-        'PASSWORD': env('DB_PASSWORD', default='your_mysql_password'),
+        'PASSWORD': env('DB_PASSWORD', default='your_password'),
         'HOST': env('DB_HOST', default='localhost'),  # Use 'localhost' for local development
         'PORT': env('DB_PORT', default='3306'),
     }
 }
-
-# Use a different database for testing
-if 'test' in sys.argv:
-    DATABASES['default']['NAME'] = env('TEST_DB_NAME', default='test_budget_db')
 
 
 # Password validation

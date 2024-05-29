@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { List, ListItem, ListItemText, Paper, Typography } from '@mui/material';
 
-function Expense() {
+const Expense = () => {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_BASE_URL}/expenses/`)
-      .then(response => {
-        setExpenses(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the expenses!', error);
-      });
+      .then(response => setExpenses(response.data))
+      .catch(error => console.error("There was an error fetching the expenses!", error));
   }, []);
 
   return (
-    <div>
-      <h2>Expense List</h2>
-      <ul>
-        {expenses.map(expense => (
-          <li key={expense.id}>{expense.name}: ${expense.amount}</li>
-        ))}
-      </ul>
+    <div className="expense-section">
+      <Typography variant="h4" gutterBottom>Expenses</Typography>
+      <Paper elevation={3}>
+        <List>
+          {expenses.map(expense => (
+            <ListItem key={expense.id}>
+              <ListItemText primary={expense.name} secondary={`$${Number(expense.amount).toFixed(2)}`} />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
     </div>
   );
-}
+};
 
 export default Expense;

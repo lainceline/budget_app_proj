@@ -13,7 +13,7 @@ services:
     environment:
       - DB_NAME=budget_db
       - DB_USER=your_mysql_user
-      - DB_PASSWORD=your_mysql_password
+      - DB_PASSWORD=your_password
       - DB_HOST=db
       - DB_PORT=3306
       - ALLOWED_HOSTS=localhost,127.0.0.1,web
@@ -28,6 +28,15 @@ services:
     depends_on:
       - web
 
+  frontend-test:
+    build:
+      context: ./budget-frontend
+    environment:
+      - CI=true
+    volumes:
+      - ./budget-frontend:/app
+    command: npm test -- --watchAll=false --verbose
+
   db:
     image: mysql:5.7
     volumes:
@@ -37,7 +46,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: budget_db
       MYSQL_USER: your_mysql_user
-      MYSQL_PASSWORD: your_mysql_password
+      MYSQL_PASSWORD: your_password
 
 volumes:
   mysql_data:
