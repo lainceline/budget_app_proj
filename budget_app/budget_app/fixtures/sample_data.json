@@ -1,26 +1,26 @@
 [
   {
-    "model": "budget.income",
+    "model": "budget_app.income",
     "pk": 1,
     "fields": {
       "amount": "5000.00",
-      "description": "Salary"
+      "name": "Salary"
     }
   },
   {
-    "model": "budget.expense",
+    "model": "budget_app.expense",
     "pk": 1,
     "fields": {
       "amount": "1500.00",
-      "description": "Rent"
+      "name": "Rent"
     }
   },
   {
-    "model": "budget.expense",
+    "model": "budget_app.expense",
     "pk": 2,
     "fields": {
       "amount": "200.00",
-      "description": "Utilities"
+      "name": "Utilities"
     }
   }
 ]

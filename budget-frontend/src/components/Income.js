@@ -5,7 +5,7 @@ function Income() {
   const [incomes, setIncomes] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/incomes/')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/incomes/`)
       .then(response => {
         setIncomes(response.data);
       })
@@ -19,7 +19,7 @@ function Income() {
       <h2>Income List</h2>
       <ul>
         {incomes.map(income => (
-          <li key={income.id}>{income.description}: ${income.amount.toFixed(2)}</li>
+          <li key={income.id}>{income.name}: ${income.amount}</li>
         ))}
       </ul>
     </div>

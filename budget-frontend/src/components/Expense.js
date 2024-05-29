@@ -5,7 +5,7 @@ function Expense() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/expenses/')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/expenses/`)
       .then(response => {
         setExpenses(response.data);
       })
@@ -19,7 +19,7 @@ function Expense() {
       <h2>Expense List</h2>
       <ul>
         {expenses.map(expense => (
-          <li key={expense.id}>{expense.description}: ${expense.amount.toFixed(2)}</li>
+          <li key={expense.id}>{expense.name}: ${expense.amount}</li>
         ))}
       </ul>
     </div>
