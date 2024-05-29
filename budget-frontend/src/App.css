@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.income-section {
+  margin-top:    20px;
+  margin-bottom: 40px; /* Adjust this value to increase/decrease the space */
+}
+
+.expense-section {
+  margin-bottom: 40px; /* Adjust this value if you want space below expenses too */
+}
+
