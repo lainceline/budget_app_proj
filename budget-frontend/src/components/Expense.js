@@ -18,7 +18,7 @@ const Expense = () => {
         <List>
           {expenses.map(expense => (
             <ListItem key={expense.id}>
-              <ListItemText primary={expense.name} secondary={`$${expense.amount}`} />
+              <ListItemText primary={expense.name} secondary={`$${Number(expense.amount).toFixed(2)}`} />
             </ListItem>
           ))}
         </List>

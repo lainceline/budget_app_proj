@@ -1,5 +1,4 @@
-# Dockerfile
-
+# Dockerfile.frontend
 FROM node:14
 
 # Set working directory

@@ -28,6 +28,15 @@ services:
     depends_on:
       - web
 
+  frontend-test:
+    build:
+      context: ./budget-frontend
+    environment:
+      - CI=true
+    volumes:
+      - ./budget-frontend:/app
+    command: npm test -- --watchAll=false --verbose
+
   db:
     image: mysql:5.7
     volumes:

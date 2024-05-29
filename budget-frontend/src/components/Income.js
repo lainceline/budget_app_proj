@@ -18,7 +18,7 @@ const Income = () => {
         <List>
           {incomes.map(income => (
             <ListItem key={income.id}>
-              <ListItemText primary={income.name} secondary={`$${income.amount}`} />
+              <ListItemText primary={income.name} secondary={`$${Number(income.amount).toFixed(2)}`} />
             </ListItem>
           ))}
         </List>

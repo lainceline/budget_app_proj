@@ -1,8 +1,9 @@
+// src/App.js
 import React from 'react';
 import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 import Income from './components/Income';
 import Expense from './components/Expense';
-import './App.css'; // Import your CSS file here
+import './App.css';
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">
-            Budget App
+            Personal Budgeting Application
           </Typography>
         </Toolbar>
       </AppBar>
